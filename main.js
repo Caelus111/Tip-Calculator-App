@@ -11,6 +11,7 @@ const error = document.querySelector("form span");
 let billAmount, customTip, numPeople, tipPerson, tipTotal, totalPerson;
 let percent = 0;
 
+
 function resetBtn(params) {
   billInput.value = "";
   tipInput.value = "";
@@ -22,6 +23,7 @@ function resetBtn(params) {
   amount.textContent = "$0.00";
   total.textContent = "$0.00";
   error.classList.add("hide");
+  reset.classList.remove("active");
 }
 
 billInput.addEventListener("change", () => {
@@ -51,7 +53,6 @@ peopleInput.addEventListener("change", () => {
 });
 
 cards.forEach((tip) => {
-    let percent = 0;
   tip.addEventListener("pointerdown", () => {
     tip.classList.add("active");
     cards.forEach((othertip) => {
@@ -60,38 +61,36 @@ cards.forEach((tip) => {
       }
     });
     if (tip.id !== "custom") {
-    //   tip.classList.remove("active");
       percent = +tip.innerHTML;
     }
   });
 });
-
-
 
 inputs.forEach((input) => {
   input.addEventListener("change", () => {
     billAmount = +billInput.value;
     numPeople = +peopleInput.value;
     customTip = +tipInput.value;
-   
+
     if (customTip > 100) {
       alert("percentage cannot be greater than 100!");
       resetBtn();
     }
 
-    if (percent === 0) percent = customTip;
+    if (tipInput.classList.contains("active")) {
+      percent = customTip;
+    } 
 
     if (billAmount !== 0 && numPeople !== 0 && percent !== 0) {
       tipTotal = billAmount * (percent / 100);
       tipPerson = tipTotal / numPeople;
       totalPerson = (billAmount + tipTotal) / numPeople;
 
-      console.log(billAmount, numPeople, percent, customTip);
-      amount.textContent = `$ ${tipTotal.toFixed(2)} `;
-      total.textContent = `$ ${totalPerson.toFixed(2)} `;
+      console.log(totalPerson, tipPerson, percent, customTip);
+      amount.textContent = `$${tipPerson.toFixed(2)} `;
+      total.textContent = `$${totalPerson.toFixed(2)} `;
     }
   });
 });
 
 reset.addEventListener("click", resetBtn);
-

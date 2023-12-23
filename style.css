@@ -69,11 +69,6 @@ input {
 input:focus {
   border: 2px solid var(--amountClr);
 }
-/* 
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-} */
 
 .input-bill {
   background: var(--inputClr) url(images/icon-dollar.svg) no-repeat center left
@@ -123,9 +118,6 @@ input::-webkit-inner-spin-button {
   background: var(--cardClr);
   color: #fff;
   border-radius: 0.9rem;
-}
-
-.card.tip {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -134,13 +126,16 @@ input::-webkit-inner-spin-button {
   cursor: pointer;
 }
 
-.card.tip:last-child {
-  background: #fff;
+.card.tip {
 }
 
-.card.tip h3 {
-  font-size: clamp(1.3rem, 1.163rem + 0.4348vw, 1.5rem);
+.card:last-child {
+  transition: 0s;
+  background: #fff;
+ color: var(--cardClr);
+  font-size: clamp(1.25rem, 1.163rem + 0.4348vw, 1.5rem);
 }
+
 
 .tips {
   display: grid;
@@ -149,6 +144,15 @@ input::-webkit-inner-spin-button {
   gap: 0.8rem;
   row-gap: 1rem;
   margin-top: 1rem;
+}
+
+.tips button {
+  font-size: clamp(1.3rem, 1.163rem + 0.4348vw, 1.5rem);
+  padding: 0;
+}
+
+.tips button:after {
+  content: '%';
 }
 
 .tip-input::placeholder {
